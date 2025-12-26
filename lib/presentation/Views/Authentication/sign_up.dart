@@ -1,6 +1,7 @@
 import 'package:chat_app/Behaviour/Constants/colors_constants.dart';
 import 'package:chat_app/Behaviour/Constants/utilies.dart';
 import 'package:chat_app/Behaviour/Constants/validation.dart';
+import 'package:chat_app/presentation/Views/Chat/chat_page.dart';
 import 'package:chat_app/presentation/Widgets/build_elevated_button.dart';
 import 'package:chat_app/presentation/Widgets/build_text_form_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,7 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class SignUp extends StatefulWidget {
-  SignUp({super.key});
+  const SignUp({super.key});
   static const String id = "SignUp";
 
   @override
@@ -25,7 +26,7 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return ModalProgressHUD(
       inAsyncCall: isLoading,
-      color: ColorsConstants.white,
+      color: ColorsConstants.kWhite,
       child: Scaffold(
         backgroundColor: ColorsConstants.kPrimaryColor,
         body: Form(
@@ -73,6 +74,7 @@ class _SignUpState extends State<SignUp> {
                         validator: (data) {
                           return Validation.emailValidation(data);
                         },
+                        bordersColor: ColorsConstants.kWhite,
                       ),
                       SizedBox(height: 15),
                       BuildTextFormField(
@@ -83,6 +85,7 @@ class _SignUpState extends State<SignUp> {
                         validator: (data) {
                           return Validation.passwordValidation(data);
                         },
+                        bordersColor: ColorsConstants.kWhite,
                       ),
                       SizedBox(height: 35),
                       BuildElevatedButton(
@@ -93,18 +96,17 @@ class _SignUpState extends State<SignUp> {
                             setState(() {});
                             try {
                               await signingUpUser();
-                              Utilies.showSnackBar(
-                                context: context,
-                                message: "Success",
-                              );
+                              Navigator.pushNamed(context, ChatPage.id);
                             } on FirebaseAuthException catch (e) {
                               if (e.code == 'weak-password') {
                                 Utilies.showSnackBar(
+                                  // ignore: use_build_context_synchronously
                                   context: context,
                                   message: "Weak Password",
                                 );
                               } else if (e.code == 'email-already-in-use') {
                                 Utilies.showSnackBar(
+                                  // ignore: use_build_context_synchronously
                                   context: context,
                                   message: "Email Already In Use",
                                 );

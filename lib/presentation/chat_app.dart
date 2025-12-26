@@ -1,5 +1,6 @@
 import 'package:chat_app/presentation/Views/Authentication/sign_in.dart';
 import 'package:chat_app/presentation/Views/Authentication/sign_up.dart';
+import 'package:chat_app/presentation/Views/Chat/chat_page.dart';
 import 'package:flutter/material.dart';
 
 class ChatApp extends StatelessWidget {
@@ -12,6 +13,7 @@ class ChatApp extends StatelessWidget {
       routes: {
         SignUp.id: (context) => SignUp(),
         SignIn.id: (context) => SignIn(),
+        ChatPage.id: (context) => ChatPage(),
       },
     );
   }

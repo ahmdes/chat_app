@@ -9,4 +9,6 @@ class Utilies {
       context,
     ).showSnackBar(SnackBar(content: Text(message)));
   }
+
+  static const chatBubbleCollection = "message";
 }
